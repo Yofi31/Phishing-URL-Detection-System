@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phishing URL Detection System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .phishing {
+    color: red;
+}
+
+.legitimate {
+    color: green;
+}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Phishing URL Detection</h1>
+
+        <p>Enter a URL to check whether it is legitimate or phishing.</p>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="url"
+                placeholder="Enter URL"
+                required
+            >
+
+            <br>
+
+            <button type="submit">
+                Check URL
+            </button>
+
+        </form>
+
+        {% if result %}
+
+        <div class="result">
+
+            <p>URL: {{ url }}</p>
+
+            <p class="{% if result == 'PHISHING URL' %}phishing{% else %}legitimate{% endif %}">
+    Result: {{ result }}
+</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
