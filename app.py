@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import joblib
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 
@@ -17,6 +18,10 @@ def home():
 
     if request.method == "POST":
         url = request.form["url"]
+        parsed_url = urlparse(url)
+
+        if not parsed_url.scheme or not parsed_url.netloc:
+            return redirect(url_for("home", result="INVALID URL", url=url))
 
         # Convert URL into numerical features
         url_features = vectorizer.transform([url])

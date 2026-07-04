@@ -103,7 +103,9 @@
             <p class="{% if result == 'PHISHING URL' %}phishing{% else %}legitimate{% endif %}">
     Result: {{ result }}
 </p>
+{% if confidence %}
 <p>Confidence: {{ confidence }}%</p>
+{% endif %}
         </div>
 
         {% endif %}
