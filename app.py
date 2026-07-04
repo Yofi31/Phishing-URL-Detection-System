@@ -13,6 +13,7 @@ def home():
 
     result = request.args.get("result")
     url = request.args.get("url", "")
+    confidence = request.args.get("confidence")
 
     if request.method == "POST":
         url = request.form["url"]
@@ -22,14 +23,16 @@ def home():
 
         # Predict URL
         prediction = model.predict(url_features)[0]
+        probabilities = model.predict_proba(url_features)[0]
+        confidence = round(probabilities[prediction] * 100, 2)
 
         if prediction == 1:
             result = "LEGITIMATE URL"
         else:
             result = "PHISHING URL"
 
-        return redirect(url_for("home", result=result, url=url))
-    return render_template("index.html", result=result, url=url)
+        return redirect(url_for("home", result=result, url=url, confidence=confidence))
+    return render_template("index.html", result=result, url=url, confidence=confidence)
 
 if __name__ == "__main__":
     app.run(debug=True)
