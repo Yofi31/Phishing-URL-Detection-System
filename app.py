@@ -22,6 +22,9 @@ def home():
 
         if not parsed_url.scheme or not parsed_url.netloc:
             return redirect(url_for("home", result="INVALID URL", url=url))
+        
+        if "." not in parsed_url.netloc:
+            return redirect(url_for("home", result="INVALID URL", url=url))
 
         # Convert URL into numerical features
         url_features = vectorizer.transform([url])
